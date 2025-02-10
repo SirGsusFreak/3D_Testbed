@@ -9,7 +9,46 @@ export_presets.cfg
 # Imported translations (automatically generated from CSV files)
 *.translation
 
+# Godot-generated files
+*.log
+*.tmp
+*.translated
+*.cfg
+*.gen.*
+
 # Mono-specific ignores
 .mono/
 data_*/
 mono_crash.*.json
+*.csproj
+*.sln
+*.pidb
+*.suo
+*.userprefs
+*.orig
+*.bak
+*.dll
+*.exe
+*.pdb
+*.mdb
+
+# Exported game files
+export/
+*.pck
+*.zip
+*.exe
+*.app
+*.xcodeproj
+*.apk
+*.ipa
+
+# Debug and cache files
+*.debug
+*.db-shm
+*.db-wal
+*.db
+*.cache
+
+# OS-specific files
+.DS_Store
+Thumbs.db
