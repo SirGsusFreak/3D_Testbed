@@ -1,0 +1,122 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0cfxvq4a2bvf"]
+
+[ext_resource type="Script" path="res://scripts/levels/level_class.gd" id="1_1jf0c"]
+[ext_resource type="PackedScene" uid="uid://d1rastr4fejcl" path="res://scenes/enemies/grunt.tscn" id="1_d4ag5"]
+[ext_resource type="Texture2D" uid="uid://c26un18yn2xhb" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_a42uf"]
+[ext_resource type="PackedScene" uid="uid://mxpsg1np2fcv" path="res://scenes/debug/DraggableOrb.tscn" id="4_ttvix"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_26j03"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_6tku2"]
+sky_material = SubResource("ProceduralSkyMaterial_26j03")
+
+[sub_resource type="Environment" id="Environment_sqffw"]
+background_mode = 2
+sky = SubResource("Sky_6tku2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0okac"]
+albedo_texture = ExtResource("2_a42uf")
+uv1_scale = Vector3(40, 40, 40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xfrpe"]
+material = SubResource("StandardMaterial3D_0okac")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_837eq"]
+size = Vector3(2, 0, 2)
+
+[node name="Level_Test_Grunt" type="Node"]
+script = ExtResource("1_1jf0c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sqffw")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_xfrpe")
+skeleton = NodePath("StaticBody3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_837eq")
+
+[node name="Grunt" parent="." instance=ExtResource("1_d4ag5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Grunt"]
+remote_path = NodePath("../../Cameras/FollowCamera")
+use_global_coordinates = false
+update_rotation = false
+update_scale = false
+
+[node name="RayCast3D" type="RayCast3D" parent="Grunt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+target_position = Vector3(-1, 0, 0)
+collision_mask = 0
+hit_back_faces = false
+collide_with_bodies = false
+debug_shape_custom_color = Color(0, 0, 1, 1)
+
+[node name="Cameras" type="Node" parent="."]
+
+[node name="FollowCamera" type="Camera3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 12, 12)
+cull_mask = 524287
+
+[node name="TopDownCamera" type="Camera3D" parent="Cameras"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 60, 0)
+current = true
+fov = 20.0
+size = 22.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="FPSLabel" type="Label" parent="Control/GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "FPS"
+
+[node name="ActiveTargetLabel" type="Label" parent="Control/GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Active Target:"
+
+[node name="TogDebugBttn" type="Button" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+toggle_mode = true
+text = "Toggle Debug View"
+
+[node name="TargetOrb" parent="." instance=ExtResource("4_ttvix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70769, 7)

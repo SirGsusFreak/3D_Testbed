@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://cohluihg0s6kp"]
+
+[ext_resource type="Script" path="res://scripts/levels/level_class.gd" id="1_jq33h"]
+
+[node name="Level" type="Node"]
+script = ExtResource("1_jq33h")
+
+[node name="Gameplay" type="Node" parent="."]
+
+[node name="Entities" type="Node" parent="Gameplay"]
+
+[node name="Triggers" type="Node" parent="Gameplay"]
+
+[node name="Navigation" type="Node" parent="Gameplay"]
+
+[node name="World" type="Node" parent="."]
+
+[node name="Geometry" type="Node" parent="World"]
+
+[node name="Envirenment" type="Node" parent="World"]
+
+[node name="Particals" type="Node" parent="World"]
+
+[node name="Lighting" type="Node" parent="World"]
+
+[node name="Cameras" type="Node" parent="World"]
+
+[node name="Audio" type="Node" parent="World"]
+
+[node name="Physics" type="Node" parent="World"]
+
+[node name="UI" type="Node" parent="."]

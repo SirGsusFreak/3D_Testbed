@@ -1,0 +1,131 @@
+[gd_scene load_steps=14 format=3 uid="uid://dqhjvqsthfr5i"]
+
+[ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_bdlpf"]
+[ext_resource type="Shader" path="res://scenes/utilities/area_sphere.gdshader" id="2_dq61u"]
+[ext_resource type="PackedScene" uid="uid://bqflekvl03cl" path="res://scenes/debug/debug_arrow.tscn" id="3_7saow"]
+[ext_resource type="PackedScene" uid="uid://bsttigwrbn4b6" path="res://scenes/utilities/movement_logic.tscn" id="4_3uny2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gu4ey"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jv81u"]
+radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tgkyl"]
+render_priority = 0
+shader = ExtResource("2_dq61u")
+shader_parameter/color1 = Color(1, 0, 0, 0)
+shader_parameter/color2 = Color(1, 0, 0, 1)
+shader_parameter/threshold = 0.1
+shader_parameter/fresnel_sharpness = 1.0
+shader_parameter/fresnel_sphere = false
+shader_parameter/fresnel_intersect = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_67dfq"]
+material = SubResource("ShaderMaterial_tgkyl")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbvri"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.294118)
+rim_enabled = true
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_3nv12"]
+material = SubResource("StandardMaterial3D_kbvri")
+radius = 0.125
+height = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vcqeo"]
+radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnqbv"]
+render_priority = 0
+shader = ExtResource("2_dq61u")
+shader_parameter/color1 = Color(0, 0.85, 1, 0)
+shader_parameter/color2 = Color(0, 0.85, 1, 1)
+shader_parameter/threshold = 0.1
+shader_parameter/fresnel_sharpness = 1.0
+shader_parameter/fresnel_sphere = false
+shader_parameter/fresnel_intersect = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_b7bvb"]
+material = SubResource("ShaderMaterial_qnqbv")
+radius = 1.0
+height = 2.0
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_bdlpf")
+debug_visibility = true
+metadata/Tags = ["Enemy"]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_gu4ey")
+
+[node name="AggroArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 10
+input_ray_pickable = false
+
+[node name="AggroShape" type="CollisionShape3D" parent="AggroArea"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("SphereShape3D_jv81u")
+
+[node name="AggroDebugVisual" type="MeshInstance3D" parent="AggroArea/AggroShape"]
+layers = 524288
+mesh = SubResource("SphereMesh_67dfq")
+skeleton = NodePath("../../../CollisionShape")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.5, 0)
+
+[node name="Home" type="Node3D" parent="."]
+top_level = true
+
+[node name="HomePoint" type="Node3D" parent="Home"]
+
+[node name="HomeDebugPoint" type="MeshInstance3D" parent="Home/HomePoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+layers = 524288
+mesh = SubResource("SphereMesh_3nv12")
+skeleton = NodePath("../..")
+
+[node name="Marker3D" type="Marker3D" parent="Home/HomePoint/HomeDebugPoint"]
+gizmo_extents = 0.5
+
+[node name="HomeArea" type="Area3D" parent="Home"]
+collision_layer = 0
+collision_mask = 13
+
+[node name="HomeCollision" type="CollisionShape3D" parent="Home/HomeArea"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("SphereShape3D_vcqeo")
+
+[node name="HomeDebugVisual" type="MeshInstance3D" parent="Home/HomeArea/HomeCollision"]
+layers = 524288
+mesh = SubResource("SphereMesh_b7bvb")
+skeleton = NodePath("../../..")
+
+[node name="DebugArrows" type="Label3D" parent="."]
+layers = 524288
+
+[node name="FacingArrow" parent="DebugArrows" instance=ExtResource("3_7saow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+direction = Vector3(1, 0, 0)
+length = 0.75
+color = Color(1, 1, 0, 1)
+
+[node name="TargetArrow" parent="DebugArrows" instance=ExtResource("3_7saow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+use_global_direction = true
+direction = Vector3(1, 0, 0)
+length = 1.0
+color = Color(0, 1, 0, 1)
+arrow_size = 0.5
+
+[node name="MovementLogic" parent="." instance=ExtResource("4_3uny2")]
+base_move = "Wander"
+aggro_move = "Chase"
+
+[connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]

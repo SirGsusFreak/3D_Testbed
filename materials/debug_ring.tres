@@ -1,0 +1,13 @@
+[gd_resource type="CylinderMesh" load_steps=2 format=3 uid="uid://3f8lvnvgt0kk"]
+
+[ext_resource type="Material" uid="uid://bl35pm5oxqq3k" path="res://materials/home_range.tres" id="1_3awx3"]
+
+[resource]
+lightmap_size_hint = Vector2i(33, 14)
+material = ExtResource("1_3awx3")
+top_radius = 0.99
+bottom_radius = 1.0
+height = 0.001
+rings = 0
+cap_top = false
+cap_bottom = false

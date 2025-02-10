@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqflekvl03cl"]
+
+[ext_resource type="Script" path="res://scenes/debug/debug_arrow.gd" id="1_men8x"]
+
+[node name="DebugArrowRay" type="Marker3D"]
+gizmo_extents = 0.5
+script = ExtResource("1_men8x")
+layer = 524288
