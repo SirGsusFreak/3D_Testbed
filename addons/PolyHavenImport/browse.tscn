@@ -1,0 +1,251 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6t2dcpxlp834"]
+
+[ext_resource type="Texture2D" uid="uid://dlor0d8escepg" path="res://addons/PolyHavenImport/logo-256.png" id="3"]
+[ext_resource type="Script" path="res://addons/PolyHavenImport/browse.gd" id="4"]
+
+[node name="Browse" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="SearchContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SearchInput" type="LineEdit" parent="MarginContainer/VBoxContainer/SearchContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search assets"
+
+[node name="FilterContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FilterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TypeLabel" type="Label" parent="MarginContainer/VBoxContainer/FilterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Type:"
+
+[node name="TypesDropDown" type="OptionButton" parent="MarginContainer/VBoxContainer/FilterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/text = "Hdris"
+popup/item_1/id = 1
+popup/item_2/text = "Textures"
+popup/item_2/id = 2
+popup/item_3/text = "Models"
+popup/item_3/id = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FilterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CategoryLabel" type="Label" parent="MarginContainer/VBoxContainer/FilterContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Category:"
+
+[node name="CategoriesDropDown" type="OptionButton" parent="MarginContainer/VBoxContainer/FilterContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+selected = 0
+popup/item_0/text = "All"
+popup/item_0/id = 0
+
+[node name="ContentPanel" type="Panel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Assets" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ContentPanel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="TopPagesScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+follow_focus = true
+vertical_scroll_mode = 0
+
+[node name="TopPagesContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/v_separation = 40
+columns = 2
+
+[node name="BottomPagesScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+follow_focus = true
+vertical_scroll_mode = 0
+
+[node name="BottomPagesContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Error" type="CenterContainer" parent="MarginContainer/VBoxContainer/ContentPanel"]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ContentPanel/Error"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ContentPanel/Error/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.364706, 0.364706, 1)
+text = "Error while attempting to contact API endpoint."
+
+[node name="ErrorRetryBtn" type="Button" parent="MarginContainer/VBoxContainer/ContentPanel/Error/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Retry"
+
+[node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PolyHavenLogo" type="TextureRect" parent="MarginContainer/VBoxContainer/Footer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PolyHavenLabel" type="Label" parent="MarginContainer/VBoxContainer/Footer"]
+layout_mode = 2
+text = "Poly Haven - The Public 3D Asset Library"
+
+[node name="SupportBtn" type="Button" parent="MarginContainer/VBoxContainer/Footer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Support Poly Haven"
+
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/SearchContainer/SearchInput" to="." method="_on_SearchInput_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/SearchContainer/SearchInput" to="." method="_on_SearchInput_text_entered"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/FilterContainer/HBoxContainer/TypesDropDown" to="." method="_on_TypesDropDown_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/FilterContainer/HBoxContainer2/CategoriesDropDown" to="." method="_on_CategoriesDropDown_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19637" to="." method="goto_page" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19638" to="." method="goto_page" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19639" to="." method="goto_page" binds= [3]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19640" to="." method="goto_page" binds= [4]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19641" to="." method="goto_page" binds= [5]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19642" to="." method="goto_page" binds= [6]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19643" to="." method="goto_page" binds= [7]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19644" to="." method="goto_page" binds= [8]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19645" to="." method="goto_page" binds= [9]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19646" to="." method="goto_page" binds= [10]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19647" to="." method="goto_page" binds= [11]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19648" to="." method="goto_page" binds= [12]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19649" to="." method="goto_page" binds= [13]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19650" to="." method="goto_page" binds= [14]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19651" to="." method="goto_page" binds= [15]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19652" to="." method="goto_page" binds= [16]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19653" to="." method="goto_page" binds= [17]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19654" to="." method="goto_page" binds= [18]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19655" to="." method="goto_page" binds= [19]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19656" to="." method="goto_page" binds= [20]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19657" to="." method="goto_page" binds= [21]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19658" to="." method="goto_page" binds= [22]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19659" to="." method="goto_page" binds= [23]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19660" to="." method="goto_page" binds= [24]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19661" to="." method="goto_page" binds= [25]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19662" to="." method="goto_page" binds= [26]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19663" to="." method="goto_page" binds= [27]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19664" to="." method="goto_page" binds= [28]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19665" to="." method="goto_page" binds= [29]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19666" to="." method="goto_page" binds= [30]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19667" to="." method="goto_page" binds= [31]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19668" to="." method="goto_page" binds= [32]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19669" to="." method="goto_page" binds= [33]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19670" to="." method="goto_page" binds= [34]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19671" to="." method="goto_page" binds= [35]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/TopPagesScroll/TopPagesContainer/@Button@19672" to="." method="goto_page" binds= [36]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19637" to="." method="goto_page" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19638" to="." method="goto_page" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19639" to="." method="goto_page" binds= [3]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19640" to="." method="goto_page" binds= [4]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19641" to="." method="goto_page" binds= [5]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19642" to="." method="goto_page" binds= [6]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19643" to="." method="goto_page" binds= [7]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19644" to="." method="goto_page" binds= [8]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19645" to="." method="goto_page" binds= [9]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19646" to="." method="goto_page" binds= [10]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19647" to="." method="goto_page" binds= [11]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19648" to="." method="goto_page" binds= [12]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19649" to="." method="goto_page" binds= [13]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19650" to="." method="goto_page" binds= [14]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19651" to="." method="goto_page" binds= [15]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19652" to="." method="goto_page" binds= [16]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19653" to="." method="goto_page" binds= [17]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19654" to="." method="goto_page" binds= [18]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19655" to="." method="goto_page" binds= [19]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19656" to="." method="goto_page" binds= [20]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19657" to="." method="goto_page" binds= [21]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19658" to="." method="goto_page" binds= [22]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19659" to="." method="goto_page" binds= [23]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19660" to="." method="goto_page" binds= [24]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19661" to="." method="goto_page" binds= [25]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19662" to="." method="goto_page" binds= [26]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19663" to="." method="goto_page" binds= [27]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19664" to="." method="goto_page" binds= [28]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19665" to="." method="goto_page" binds= [29]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19666" to="." method="goto_page" binds= [30]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19667" to="." method="goto_page" binds= [31]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19668" to="." method="goto_page" binds= [32]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19669" to="." method="goto_page" binds= [33]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19670" to="." method="goto_page" binds= [34]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19671" to="." method="goto_page" binds= [35]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Assets/MarginContainer/VBoxContainer/BottomPagesScroll/BottomPagesContainer/_Button_19672" to="." method="goto_page" binds= [36]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ContentPanel/Error/VBoxContainer/ErrorRetryBtn" to="." method="_on_ErrorRetryBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/SupportBtn" to="." method="_on_SupportBtn_pressed"]
