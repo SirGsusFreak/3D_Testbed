@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0cfxvq4a2bvf"]
+[gd_scene load_steps=13 format=3 uid="uid://d0cfxvq4a2bvf"]
 
 [ext_resource type="Script" path="res://scripts/levels/level_class.gd" id="1_1jf0c"]
 [ext_resource type="PackedScene" uid="uid://d1rastr4fejcl" path="res://scenes/enemies/grunt.tscn" id="1_d4ag5"]
@@ -27,6 +27,10 @@ material = SubResource("StandardMaterial3D_0okac")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_837eq"]
 size = Vector3(2, 0, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6cjb8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kgtfg"]
 
 [node name="Level_Test_Grunt" type="Node"]
 script = ExtResource("1_1jf0c")
@@ -120,3 +124,39 @@ text = "Toggle Debug View"
 
 [node name="TargetOrb" parent="." instance=ExtResource("4_ttvix")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70769, 7)
+
+[node name="Wall01" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 5, 3, 0.780601, 0)
+mesh = SubResource("BoxMesh_6cjb8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall01"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall01/StaticBody3D"]
+shape = SubResource("BoxShape3D_kgtfg")
+
+[node name="Wall02" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 5, -3, 0.780601, 0)
+mesh = SubResource("BoxMesh_6cjb8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall02"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall02/StaticBody3D"]
+shape = SubResource("BoxShape3D_kgtfg")
+
+[node name="Wall03" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 5, 0, 1.5, 0, -1, 0, -2.18557e-07, 0, 0.780601, 3)
+mesh = SubResource("BoxMesh_6cjb8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall03"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall03/StaticBody3D"]
+shape = SubResource("BoxShape3D_kgtfg")
+
+[node name="Wall04" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -5, 0, 1.5, 0, 1, 0, -2.18557e-07, 0, 0.780601, -3)
+mesh = SubResource("BoxMesh_6cjb8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall04"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall04/StaticBody3D"]
+shape = SubResource("BoxShape3D_kgtfg")

@@ -50,7 +50,16 @@ func _handle_walking(delta: float):
 	# Move in the current target direction
 	var direction = Vector3(cos(_facing_angle), 0, sin(_facing_angle)).normalized()
 	owner.velocity = direction * speed
-	owner.move_and_slide()
+	var collision = owner.move_and_slide()
+
+	# Check for collision and reflect movement
+	if collision and owner.get_slide_collision_count() > 0:
+		var collision_info = owner.get_slide_collision(0)
+		var normal = collision_info.get_normal()
+		_target_direction = _target_direction.bounce(normal)  # Reflect direction
+		_facing_angle = atan2(_target_direction.z, _target_direction.x)
+		_update_target_arrow()  # Update the arrow to reflect new direction
+		_state = "turning"  # Go into turning state after a collision
 
 	# Countdown timer
 	if home_sick:
