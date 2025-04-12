@@ -2,9 +2,6 @@
  
 This personal project showcases my work on developing enemy behaviors in a 3D envirement similar to 3D Platformers.
 
-This project was inspired by a YouTube video by [Pannenkoek2012](https://www.youtube.com/@pannenkoek2012) in which he breaks down the behaviors and quirks of the Goomba in Super Mario 64
-[Every Goomba Glitch in Super Mario 64](https://youtu.be/mcI1kUvVMYM?si=uLaima1zga3EKeZy)
-
 This project implements a modular movement AI system in Godot 4.3, designed for use in 3D games where enemies or characters need to move around in simplistic yet dynamic ways.
 
 ## Purpose
